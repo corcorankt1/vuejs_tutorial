@@ -17,6 +17,13 @@
             {{sayHello()}} - <a v-bind:href="link">Portfolio</a>
         </p>
         <p v-html="finishedLink"></p>
+        <button v-on:click="increase(2, $event)">Click Me</button>
+        <p>{{ counter }}</p>
+        <p v-on:mousemove="updateCoordinates">
+            Coordinates: {{ x }} / {{ y }}
+            - <span v-on:mousemove.stop="">DEAD SPOT</span>
+        </p>
+        <input type="text" v-on:keyup.enter="alertMe"/>
     </div>
     <script>
         new Vue({
@@ -24,7 +31,10 @@
             data: {
                 title: 'Hello World',
                 link: 'https://katiecorcoran.codes',
-                finishedLink: '<a href="google.com">Google</a>'
+                finishedLink: '<a href="google.com">Google</a>',
+                counter: 0,
+                x: 0,
+                y: 0,
             },
             methods: {
                 changeTitle: function (event) {
@@ -33,7 +43,17 @@
                 sayHello: function (){
                     this.title = "Hello!";
                     return this.title;
-                }
+                },
+                increase: function (step, event) {
+                    this.counter += step;
+                },
+                updateCoordinates: function (event){
+                    this.x = event.clientX;
+                    this.y = event.clientY;
+                },
+                alertMe: function () {
+                    alert('alert');
+                },
             }
         })
     </script>
